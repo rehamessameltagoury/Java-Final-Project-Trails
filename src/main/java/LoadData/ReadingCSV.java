@@ -32,10 +32,10 @@ public class ReadingCSV {
     public DataFrame getWuzzufDataFrame() {
         return WuzzufDataframe;
     }
-    public List<WuzzufEmpolyee> getWuzzufEmpolyeeList() {
-        assert WuzzufDataframe != null;
+    public List<WuzzufEmpolyee> getWuzzufEmpolyeeList(DataFrame Wuzzufdf) {
+        assert Wuzzufdf != null;
         List<WuzzufEmpolyee> WuzzufEmpolyees = new ArrayList<>();
-        ListIterator<Tuple> iterator = WuzzufDataframe.stream ().collect (Collectors.toList ()).listIterator ();
+        ListIterator<Tuple> iterator = Wuzzufdf.stream ().collect (Collectors.toList ()).listIterator ();
         while (iterator.hasNext ()) {
             Tuple t = iterator.next ();
             WuzzufEmpolyee emp= new WuzzufEmpolyee ();
