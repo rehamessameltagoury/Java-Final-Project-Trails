@@ -21,7 +21,7 @@ public class ReadingCSV {
         DataFrame df = null;
         try {
             df = Read.csv (path, format);
-            System.out.println(df.summary ());
+            //System.out.println(df.summary ());
             df = df.select ("Title","Company","Location","Type","Level","YearsExp","Country","Skills");
             //System.out.println(df.summary ());
         } catch (IOException | URISyntaxException e) {
@@ -35,10 +35,16 @@ public class ReadingCSV {
     public DataFrame getWuzzufDataFrame() {
         return WuzzufDataframe;
     }
-    public List<WuzzufEmpolyee> getEmpolyeeList() {
+    public List<WuzzufEmpolyee> getEmpolyeeList(int limit) {
         assert WuzzufDataframe != null;
         List<WuzzufEmpolyee> empolyees = new ArrayList<>();
-        ListIterator<Tuple> iterator = WuzzufDataframe.stream().collect(Collectors.toList()).listIterator();
+        ListIterator<Tuple> iterator;
+        if(limit == -1){
+             iterator = WuzzufDataframe.stream().collect(Collectors.toList()).listIterator();
+        }
+        else{
+            iterator = WuzzufDataframe.stream().limit(limit).collect(Collectors.toList()).listIterator();
+        }
         while (iterator.hasNext()) {
             Tuple t = iterator.next();
             WuzzufEmpolyee p = new WuzzufEmpolyee();
