@@ -7,10 +7,9 @@ import smile.plot.swing.BarPlot;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -32,7 +31,7 @@ public class Wuzzufoperationdf {
         List<WuzzufEmpolyee> wemps=WuzzufData.getWuzzufEmpolyeeList();
         Map<String, Long> jobEachcompany =wemps.stream().collect(groupingBy(WuzzufEmpolyee::getCompany,counting()));
         jobEachcompany.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).limit(10)
                 .forEach(System.out::println);
 
         // Create Chart
@@ -41,8 +40,14 @@ public class Wuzzufoperationdf {
         Color[] sliceColors = new Color[]{new Color(180, 68, 50), new Color(130, 105, 120), new Color(80, 143, 160)};
         pieCh.getStyler().setSeriesColors(sliceColors);
        // Series
-
-        jobEachcompany.forEach((k, v)->pieCh.addSeries(k,v));
+        Map<String, Long> reversedjobEachcompany=new HashMap<>() ;
+        reversedjobEachcompany=jobEachcompany.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).limit(10).collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (oldValue, newValue) -> oldValue,
+                LinkedHashMap::new));
+        reversedjobEachcompany.forEach((k, v)->pieCh.addSeries(k,v));
 
 
 // Show it
@@ -56,10 +61,18 @@ public class Wuzzufoperationdf {
         System.out.println("6. Find out What are the most popular job titles? ");
         Map<String, Long> JobTitle =wemps.stream().collect(groupingBy(WuzzufEmpolyee::getTitle,counting()));
         JobTitle.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).limit(10)
                 .forEach(System.out::println);
-        List<String> keyList = new ArrayList<String>(JobTitle.keySet());
-        List<Long> valueList = new ArrayList<Long>(JobTitle.values());
+        Map<String, Long> reversedjobtitles=new HashMap<>() ;
+        reversedjobtitles= JobTitle.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).limit(10).collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new));
+        //System.out.println("reversedjobtitles: "+reversedjobtitles);
+        List<String> keyList = new ArrayList<String>(reversedjobtitles.keySet());
+        List<Long> valueList = new ArrayList<Long>(reversedjobtitles.values());
         //System.out.println(keyList);
         CategoryChart chart = new CategoryChartBuilder().width(1024).height(768).title("Job Titles").xAxisTitle("Titles").yAxisTitle
               ("Counting").build();
@@ -68,7 +81,7 @@ public class Wuzzufoperationdf {
         chart.getStyler().setHasAnnotations(true);
         chart.getStyler().setStacked(true);
         // 3.Series
-        chart.addSeries("Job Title",keyList.subList(1,50),valueList.subList(1,50));
+        chart.addSeries("Job Title",keyList,valueList);
         /* 4.Show it */
        new SwingWrapper(chart).displayChart();
         try {
@@ -79,11 +92,18 @@ public class Wuzzufoperationdf {
       System.out.println("8. Find out the most popular areas?");
         Map<String, Long> Areas =wemps.stream().collect(groupingBy(WuzzufEmpolyee::getLocation,counting()));
         Areas.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
-                .forEach(System.out::println);
-
-        keyList = new ArrayList<String>(Areas.keySet());
-         valueList = new ArrayList<Long>(Areas.values());
+            .sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).limit(10)
+            .forEach(System.out::println);
+        Map<String, Long> reversedAreas=new HashMap<>() ;
+        reversedAreas= Areas.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).limit(10).collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (oldValue, newValue) -> oldValue,
+                LinkedHashMap::new));
+        //System.out.println("reversedAreas: "+reversedAreas);
+        keyList = new ArrayList<String>(reversedAreas.keySet());
+         valueList = new ArrayList<Long>(reversedAreas.values());
         //System.out.println(keyList);
         CategoryChart chart2 = new CategoryChartBuilder().width(1024).height(768).title("Areas").xAxisTitle("Titles").yAxisTitle
                 ("Counting").build();
@@ -92,7 +112,7 @@ public class Wuzzufoperationdf {
         chart2.getStyler().setHasAnnotations(true);
         chart2.getStyler().setStacked(true);
         // 3.Series
-        chart2.addSeries("Area",keyList.subList(1,50),valueList.subList(1,50));
+        chart2.addSeries("Area",keyList,valueList);
         try {
             BitmapEncoder.saveBitmap(chart2, "./AreasChart", BitmapEncoder.BitmapFormat.PNG);
         } catch (IOException e) {
@@ -102,7 +122,7 @@ public class Wuzzufoperationdf {
         System.out.println("10. Print skills one by one and how many each repeated and order the output to find out the most important skills required?");
         Map<String, Long> Skills =wemps.stream().collect(groupingBy(WuzzufEmpolyee::getSkills,counting()));
         Skills.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).limit(10)
                 .forEach(System.out::println);
 
         System.out.println("11. Factorize the YearsExp feature and convert it to numbers in new col. (Bounce )");
