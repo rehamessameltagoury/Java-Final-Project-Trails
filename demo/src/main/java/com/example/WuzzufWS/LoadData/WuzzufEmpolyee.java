@@ -1,4 +1,4 @@
-package com.example.demo.LoadData;
+package com.example.WuzzufWS.LoadData;
 
 public class WuzzufEmpolyee {
     //Title,Company,Location,Type,Level,YearsExp,Country,Skills
@@ -99,6 +99,6 @@ public class WuzzufEmpolyee {
                 ", YearsExp='" + YearsExp + '\'' +
                 ", Country='" + Country + '\'' +
                 ", Skills='" + Skills + '\'' +
-                '}'+'\n';
+                '}'+"<br>";
     }
 }

@@ -1,6 +1,6 @@
-package com.example.demo.restservice;
+package com.example.WuzzufWS.restservice;
 
-import com.example.demo.LoadData.ReadingCSV;
+import com.example.WuzzufWS.LoadData.ReadingCSV;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import smile.data.DataFrame;

@@ -1,4 +1,4 @@
-package com.example.demo.LoadData;
+package com.example.WuzzufWS.LoadData;
 
 import org.apache.commons.csv.CSVFormat;
 import smile.data.DataFrame;
@@ -60,4 +60,47 @@ public class ReadingCSV {
         }
         return empolyees;
     }
+
+
+
+
+
+
+
+
+
+
+
+    public List<WuzzufEmpolyee> getWuzzufEmpolyeeList(DataFrame Wuzzufdf) {
+        assert Wuzzufdf != null;
+        List<WuzzufEmpolyee> WuzzufEmpolyees = new ArrayList<>();
+        ListIterator<Tuple> iterator = Wuzzufdf.stream ().collect (Collectors.toList ()).listIterator ();
+        while (iterator.hasNext ()) {
+            Tuple t = iterator.next ();
+            WuzzufEmpolyee emp= new WuzzufEmpolyee ();
+            //Title,Company,Location,Type,Level,YearsExp,Country,Skills
+            emp.setCompany((String) t.get("Company"));
+            emp.setCountry((String) t.get("Country"));
+            emp.setLevel((String) t.get("Level"));
+            emp.setLocation((String) t.get("Location"));
+            emp.setSkills((String) t.get("Skills"));
+            emp.setTitle((String) t.get("Title"));
+            emp.setType((String) t.get("Type"));
+            emp.setYearsExp((String) t.get("YearsExp"));
+            WuzzufEmpolyees.add (emp);
+        }
+        return WuzzufEmpolyees;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
