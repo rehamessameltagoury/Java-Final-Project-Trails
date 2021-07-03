@@ -26,7 +26,7 @@ public class Wuzzufoperationdf {
         System.out.println("2. Display structure and summary of the data.");
         System.out.println(Wuzzufdf.structure());
         System.out.println(Wuzzufdf.summary());
-        System.out.println("3. Clean the data (null, duplications)");    // TODO
+        System.out.println("3. Clean the data (null, duplications)");
         Wuzzufdf=Wuzzufdf.omitNullRows();
         List<WuzzufEmpolyee> wemps=WuzzufData.getWuzzufEmpolyeeList(Wuzzufdf);
 
@@ -61,7 +61,7 @@ public class Wuzzufoperationdf {
 // Show it
         new SwingWrapper(pieCh).displayChart();
         try {
-            BitmapEncoder.saveBitmap(pieCh, "./PieChart", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(pieCh, "./PieChart", BitmapEncoder.BitmapFormat.JPG);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,7 +93,7 @@ public class Wuzzufoperationdf {
         /* 4.Show it */
         new SwingWrapper(chart).displayChart();
         try {
-            BitmapEncoder.saveBitmap(chart, "./JobTitleChart", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(chart, "./JobTitleChart", BitmapEncoder.BitmapFormat.JPG);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +122,7 @@ public class Wuzzufoperationdf {
         // 3.Series
         chart2.addSeries("Area",keyList,valueList);
         try {
-            BitmapEncoder.saveBitmap(chart2, "./AreasChart", BitmapEncoder.BitmapFormat.PNG);
+            BitmapEncoder.saveBitmap(chart2, "./AreasChart", BitmapEncoder.BitmapFormat.JPG);
         } catch (IOException e) {
             e.printStackTrace();
         }
