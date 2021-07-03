@@ -32,13 +32,13 @@ This is The Final Project of the "Java and Uml Programming" Course as a part of 
 
 
 ## Dataset
-    Wuzzuf jobs in Egypt data set at Kaggle
-    https://www.kaggle.com/omarhanyy/wuzzuf-jobs
+   ### Wuzzuf jobs in Egypt data set at Kaggle
+         https://www.kaggle.com/omarhanyy/wuzzuf-jobs
     
     
 ## Team Members:
 
-• Amira Moussa
+• Amira Mohammed
 
 • Mahmoud Taha
 
